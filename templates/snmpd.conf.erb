@@ -1,0 +1,29 @@
+# $OpenBSD: snmpd.conf,v 1.1 2014/07/11 21:20:10 deraadt Exp $
+
+<% if @listen_addr != 'any' -%>
+listen_addr="<%= @listen_addr %>"
+listen on $listen_addr
+<% end -%>
+
+# Specify a number of trap receivers
+#trap receiver nms.localdomain.local
+
+# Adjust the local system information
+system contact "<%= @system_contact %>"
+system description "<%= @system_description %>"
+system location "<%= @system_location %>"
+system services 74
+
+# Enable SNMPv3 USM with authentication, encryption and two defined users
+#seclevel enc
+#user "user1" authkey "password123" enc aes enckey "321drowssap"
+#user "user2" authkey "password456" enckey "654drowssap"
+
+seclevel <%= @seclevel %>
+
+read-only community <%= @ro_community %>
+<% if @rw_disabled -%>
+read-write disabled
+<% else %>
+read-write community <%= @rw_community %>
+<% end -%>
