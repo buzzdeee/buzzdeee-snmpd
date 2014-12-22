@@ -1,0 +1,11 @@
+language: ruby
+bundler_args: --without development
+before_install: rm -f Gemfile.lock || true
+rvm:
+  - "1.8.7"
+  - "1.9.3"
+  - "2.0.0"
+  - "2.1.4"
+
+env:
+  - PUPPET_VERSION="~> 3.7.0" STRICT_VARIABLES=yes
