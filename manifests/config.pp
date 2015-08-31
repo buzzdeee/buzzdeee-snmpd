@@ -1,3 +1,5 @@
+# private class, do not use directly
+# takes care about snmpd.conf file
 class snmpd::config (
   $listen_addr,
   $system_contact,

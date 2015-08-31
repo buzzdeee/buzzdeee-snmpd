@@ -46,6 +46,7 @@ class snmpd (
   $rw_disabled = $snmpd::params::rw_disabled,
   $service_ensure = $snmpd::params::service_ensure,
   $service_enable = $snmpd::params::service_enable,
+  $service_flags = undef,
 ) inherits snmpd::params {
 
   class { 'snmpd::config':
@@ -62,6 +63,7 @@ class snmpd (
   class { 'snmpd::service':
     service_ensure => $service_ensure,
     service_enable => $service_enable,
+    service_flags  => $service_flags,
   }
 
   Class['snmpd::config'] ~>
