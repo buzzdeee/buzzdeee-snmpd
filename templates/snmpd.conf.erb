@@ -23,7 +23,9 @@ seclevel <%= @seclevel %>
 
 read-only community <%= @ro_community %>
 <% if @rw_disabled -%>
+<% if @os['release']['major'] < "7" -%>
 read-write disabled
+<% end -%>
 <% else %>
 read-write community <%= @rw_community %>
 <% end -%>
