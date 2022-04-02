@@ -2,7 +2,7 @@
 
 <% if @listen_addr != 'any' -%>
 listen_addr="<%= @listen_addr %>"
-listen on $listen_addr
+listen on $listen_addr snmpv2c
 <% end -%>
 
 # Specify a number of trap receivers
