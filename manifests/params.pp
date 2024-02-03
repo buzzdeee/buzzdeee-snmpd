@@ -2,7 +2,7 @@
 # takes care about the default values of
 # the modules parameters
 class snmpd::params {
-  case $::operatingsystem {
+  case $facts['os']['name'] {
     'OpenBSD': {
                 $listen_addr = '127.0.0.1'
                 $system_contact = "Charly Root (root@${::domain})"
@@ -16,7 +16,7 @@ class snmpd::params {
                 $service_enable = true
     }
     default: {
-        fail("Your Operatingsystem ${::operatingsystem} is not supported")
+        fail("Your Operatingsystem ${facts['os']['name']} is not supported")
     }
   }
 }
