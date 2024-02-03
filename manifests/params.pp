@@ -5,7 +5,7 @@ class snmpd::params {
   case $facts['os']['name'] {
     'OpenBSD': {
                 $listen_addr = '127.0.0.1'
-                $system_contact = "Charly Root (root@${::domain})"
+                $system_contact = "Charly Root (root@${facts['networking']['domain']})"
                 $system_description = 'Powered by OpenBSD'
                 $system_location = 'In the datacenter'
                 $seclevel = 'none'
