@@ -1,0 +1,9 @@
+snmpd::listen_addr: '127.0.0.1'
+snmpd::system_contact: "Charly Root (root@%{facts.networking.domain})"
+snmpd::system_description: 'Powered by OpenBSD'
+snmpd::seclevel: 'none'
+snmpd::ro_community: 'public'
+snmpd::rw_community: 'private'
+snmpd::rw_disabled: true
+snmpd::service_ensure: 'running'
+snmpd::service_enable: true

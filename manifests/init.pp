@@ -36,18 +36,18 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class snmpd (
-  $listen_addr = $snmpd::params::listen_addr,
-  $system_contact = $snmpd::params::system_contact,
-  $system_description = $snmpd::params::system_description,
-  $system_location = $snmpd::params::system_location,
-  $seclevel = $snmpd::params::seclevel,
-  $ro_community = $snmpd::params::ro_community,
-  $rw_community = $snmpd::params::rw_community,
-  $rw_disabled = $snmpd::params::rw_disabled,
-  $service_ensure = $snmpd::params::service_ensure,
-  $service_enable = $snmpd::params::service_enable,
-  $service_flags = undef,
-) inherits snmpd::params {
+  String $listen_addr = $snmpd::params::listen_addr,
+  String $system_contact = $snmpd::params::system_contact,
+  String $system_description = $snmpd::params::system_description,
+  String $system_location = $snmpd::params::system_location,
+  String $seclevel = $snmpd::params::seclevel,
+  String $ro_community = $snmpd::params::ro_community,
+  String $rw_community = $snmpd::params::rw_community,
+  Boolean $rw_disabled = $snmpd::params::rw_disabled,
+  Enum[running, stopped, 'running', 'stopped'] $service_ensure = $snmpd::params::service_ensure,
+  Boolean $service_enable = $snmpd::params::service_enable,
+  Optional[String] $service_flags = undef,
+) {
 
   class { 'snmpd::config':
     listen_addr        => $listen_addr,
