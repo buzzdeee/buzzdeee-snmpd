@@ -4,51 +4,71 @@
 #
 # === Parameters
 #
-# Document parameters here.
+# [*listen_addr*]
+#   String: The IP address to listen on, default '127.0.0.1'.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*system_contact*]
+#   String: The system contact, default: "Charly Root (root@%{facts.networking.domain})"
+#
+# [*system_location*]
+#   String: The system location, default: "data center"
+#
+# [*system_description*]
+#   String: A description of the system, default: 'Powered by OpenBSD'
+#
+# [*seclevel*]
+#   String: The seclevel, default: 'none'
+#
+# [*ro_community*]
+#   String: The ro_community name, default: 'public'
+#
+# [*rw_community*]
+#   String: The rw_community name, default: 'private'
+#
+# [*rw_disabled*]
+#   Boolean: Defines whether rw mode is enabled or not, default: true
+#
+# [*service_ensure*]
+#   Enum[running, stopped]: Defines if the service should be running or stopped, default: running
+#
+# [*service_enable*]
+#   Boolean: Defines if the service should be enabled or not, default: true
+#
+# [*service_flags*]
+#   Optional String: Defines optional service flags, default: undef
 #
 # === Variables
 #
 # Here you should define a list of variables that this module would require.
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*facts['networking']['domain']*]
+#   Is used to set the default domain of the system_contact.
 #
 # === Examples
 #
-#  class { 'snmpd':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+#  class { 'snmpd': }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Author Name <sebastia@l00-bugdead-prods.de>
 #
 # === Copyright
 #
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class snmpd (
-  String $listen_addr = $snmpd::params::listen_addr,
-  String $system_contact = $snmpd::params::system_contact,
-  String $system_description = $snmpd::params::system_description,
-  String $system_location = $snmpd::params::system_location,
-  String $seclevel = $snmpd::params::seclevel,
-  String $ro_community = $snmpd::params::ro_community,
-  String $rw_community = $snmpd::params::rw_community,
-  Boolean $rw_disabled = $snmpd::params::rw_disabled,
-  Enum[running, stopped, 'running', 'stopped'] $service_ensure = $snmpd::params::service_ensure,
-  Boolean $service_enable = $snmpd::params::service_enable,
+  String $listen_addr,
+  String $system_contact,
+  String $system_description,
+  String $system_location,
+  String $seclevel,
+  String $ro_community,
+  String $rw_community,
+  Boolean $rw_disabled,
+  Enum[running, stopped, 'running', 'stopped'] $service_ensure,
+  Boolean $service_enable,
   Optional[String] $service_flags = undef,
 ) {
-
   class { 'snmpd::config':
     listen_addr        => $listen_addr,
     system_contact     => $system_contact,
@@ -66,7 +86,6 @@ class snmpd (
     service_flags  => $service_flags,
   }
 
-  Class['snmpd::config'] ~>
-  Class['snmpd::service']
-
+  Class['snmpd::config']
+  ~> Class['snmpd::service']
 }
